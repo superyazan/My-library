@@ -1,26 +1,15 @@
-
-var library = []
-// var myLibrary = JSON.parse(localStorage.getItem("library")) || [];
-var btn = document.getElementById('btn')
+var btn = document.getElementById('btn');
 var cont= document.querySelector('.content');
-
-
 var dbRef = firebase.database().ref('books');
 
+////// Function declarations
 
+// empty message func
 function populateStorage(){
   cont.innerHTML = "<h1>You still have not added any books yet</h1>"
 }
 
-// constructor for books
-// function books(title,author,pages,cover,read){
-//   this.title = title
-//   this.author = author
-//   this.pages = pages
-//   this.cover = cover
-//   this.read = read
-// }
-
+// ifee to show the books
 (function showBooks(){
   dbRef.on('value',(snapshot) => {
     if(!snapshot.exists()){
@@ -69,10 +58,9 @@ function addBook(e){
     read : checkbox.checked ? "Completed" : "Uncompleted",
   })
   document.getElementById("library").reset();
-
 }
 
-
+// removing and completing books
 function handleCard(e) {
   var indi = e.target.dataset.index;
   if(e.target.classList.contains('remove')){
@@ -100,9 +88,6 @@ function handleCard(e) {
 }
 
 
-
+/////// event listeners
 btn.addEventListener('click',addBook)
-
-
-
 cont.addEventListener('click',handleCard)
