@@ -22,7 +22,7 @@ function showBooks(arr){
   for (let i = 0; i < arr.length ;i++){
     var div = document.createElement('div');
     div.className = 'book';
-    div.innerHTML =`<img class="cover" src="${arr[i].cover}"/>
+    div.innerHTML =`<img class="cover" src="${arr[i].cover || ''}"/>
   <div class="description">
     <p class="title">
       ${arr[i].title}<br />
