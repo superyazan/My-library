@@ -18,7 +18,7 @@ function books(title,author,pages,cover,read){
 }
 
 function showBooks(arr){
-
+  cont.innerHTML = ""
   for (let i = 0; i < arr.length ;i++){
     var div = document.createElement('div');
     div.className = 'book';
@@ -30,7 +30,7 @@ function showBooks(arr){
       <span class="pages">Pages: ${arr[i].pages}</span>
     </p>
     <button class="book-btn remove" data-index="${i}" >Remove</button>
-    <button class="book-btn ${arr[i].read}">${arr[i].read}</button>
+    <button class="book-btn ${arr[i].read}" data-index="${i}">${arr[i].read}</button>
     </div>`;
     cont.appendChild(div)
   }
@@ -69,15 +69,14 @@ function handleCard(e) {
     e.target.parentNode.parentNode.remove();
   }
   else if(e.target.classList.contains('Completed')){
-    e.target.classList.remove('Completed')
-    e.target.classList.add('Uncompleted')
-    e.target.innerText = "Uncompleted"
+    myLibrary[ind].read = 'Uncompleted'
+    localStorage.setItem("library", JSON.stringify(myLibrary));
+    showBooks(myLibrary)
   }
   else if(e.target.classList.contains('Uncompleted')){
-    e.target.classList.remove('Uncompleted')
-    e.target.classList.add('Completed')
-    e.target.innerText = "Completed"
-
+    myLibrary[ind].read = 'Completed'
+    localStorage.setItem("library", JSON.stringify(myLibrary));
+    showBooks(myLibrary)
   }
 }
 
