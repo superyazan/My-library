@@ -1,48 +1,77 @@
-var myLibrary = []
+var library = [
+  {title: 'Hobbit',
+  author: 'me',
+  pages: '220',
+  cover:"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTS1VqOgP7iJC44UcztFaTbvD0OzoRymEhXfMPlgq7FPY0OEvCj",
+  read:'Completed',
+  },
+  {title: 'Hobbit',
+  author: 'me',
+  pages: '220',
+  cover:"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTS1VqOgP7iJC44UcztFaTbvD0OzoRymEhXfMPlgq7FPY0OEvCj",
+  read:'Completed'
+  },
+  {title: 'Hobbit',
+  author: 'me',
+  pages: '220',
+  cover:"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTS1VqOgP7iJC44UcztFaTbvD0OzoRymEhXfMPlgq7FPY0OEvCj",
+  read:'Uncompleted',
+  },
+  {title: 'Hobbit',
+  author: 'me',
+  pages: '220',
+  cover:"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTS1VqOgP7iJC44UcztFaTbvD0OzoRymEhXfMPlgq7FPY0OEvCj",
+  read:'Completed',
+  },
+]
+var myLibrary = JSON.parse(localStorage.getItem("library"));
+
+
 // constructor for books
-function books(title,author,pages,cover){
+function books(title,author,pages,cover,read){
     this.title = title
     this.author = author
     this.pages = pages
     this.cover = cover
+    this.read = read
   }
-// books.prototype.read = function(){
-//   document.addEventListener('click',toggle);
-//   function toggle(e){
-//       e.target.classList.toggle('completed')
-//     }
-//   }
-//});
-
 var btn = document.getElementById('btn')
+var checkbox;
+var checking;
+var cont= document.querySelector('.content');
 
+function showBooks(arr){
+  // document.getElementById("default").style.display = "none";
+
+  for (let i = 0; i < arr.length ;i++){
+    var div = document.createElement('div');
+    div.className = 'book';
+    div.innerHTML =`<img class="cover" src="${arr[i].cover}"/>
+  <div class="description">
+    <p class="title">
+      ${arr[i].title}<br />
+      <span class="author">By: ${arr[i].author}</span><br />
+      <span class="pages">Pages: ${arr[i].pages}</span>
+    </p>
+    <button class="book-btn remove">Remove</button>
+    <button class="book-btn ${arr[i].read}">${arr[i].read}</button>
+    </div>`;
+    cont.appendChild(div)
+  }
+}
+showBooks(myLibrary)
 // adding new books
 function addBook(e){
-    e.preventDefault();
-    document.getElementById("default").style.display = "none";
+    // e.preventDefault();
     var title = document.getElementById('title').value
     var author = document.getElementById('author').value
     var pages = document.getElementById('pages').value
-    var image = document.getElementById('cover').value
-    var newBook = new books(title,author,pages,image);
-    var checkbox = document.getElementById("check");
+    var cover = document.getElementById('cover').value
+    checkbox = document.getElementById("check");
+    checking = checkbox.checked ? "Completed" : "Uncompleted"
+    var newBook = new books(title,author,pages,cover,checking);
     myLibrary.push(newBook);
-    var cont= document.querySelector('.content');
-    var div = document.createElement('div');
-    div.className = 'book';
-    div.dataset.index = `${myLibrary.length-1}`
-    div.classList
-    div.innerHTML =`<img class="cover" src="${image}"/>
-  <div class="description">
-    <p class="title">
-      ${title}<br />
-      <span class="author">By: ${author}</span><br />
-      <span class="pages">Pages: ${pages}</span>
-    </p>
-    <button class="book-btn remove" data-index="${myLibrary.length-1}">Remove</button>
-    <button class="book-btn ${checkbox.checked ? "completed" : "uncompleted"}" data-index="${myLibrary.length-1}">${checkbox.checked ? "<span>Completed</span>" : "<span>Uncompleted</span>"}</button>
-    </div>`;
-    cont.appendChild(div)
+    localStorage.setItem("library", JSON.stringify(myLibrary));
     document.getElementById("library").reset();
 
 };
@@ -62,14 +91,14 @@ function removeDiv(e) {
   if(e.target.classList.contains('remove')){
     e.target.parentNode.parentNode.remove();
   }
-  else if(e.target.classList.contains('completed')){
-    e.target.classList.remove('completed')
-    e.target.classList.add('uncompleted')
+  else if(e.target.classList.contains('Completed')){
+    e.target.classList.remove('Completed')
+    e.target.classList.add('Uncompleted')
     e.target.innerText = "Uncompleted"
   }
-  else if(e.target.classList.contains('uncompleted')){
-    e.target.classList.remove('uncompleted')
-    e.target.classList.add('completed')
+  else if(e.target.classList.contains('Uncompleted')){
+    e.target.classList.remove('Uncompleted')
+    e.target.classList.add('Completed')
     e.target.innerText = "Completed"
 
   }

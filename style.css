@@ -13,7 +13,7 @@ body {
   align-items: stretch;
   grid-template-areas:
     "header"
-    "content"
+    "conten"
     "footer";
 }
 
@@ -23,7 +23,7 @@ body {
 }
 
 .content {
-  grid-area: content;
+  grid-area: conten;
 
   display: flex;
   flex-wrap: wrap;
@@ -71,6 +71,7 @@ body {
 .form-container input[type="text"],
 .form-container input[type="url"] {
   width: 100%;
+  cursor: auto;
   padding: 15px;
   margin: 5px 0 22px 0;
   border: none;
@@ -97,7 +98,7 @@ body {
   opacity: 0.8;
 }
 
-.uncompleted {
+.Uncompleted {
   background-color: red !important;
 }
 /* Add a red background color to the cancel button */
