@@ -54,7 +54,9 @@ body {
 .form-popup {
   display: none;
   position: fixed;
-  bottom: 0;
+  height: 100%;
+  overflow: scroll;
+  top: 0;
   right: 15px;
   border: 3px solid #f1f1f1;
   z-index: 9;
