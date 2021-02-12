@@ -27,7 +27,7 @@ function populateStorage(){
         <span class="pages">Pages: ${snapshot.val()[key].pages}</span>
       </p>
       <button class="book-btn remove" data-index="${key}" >Remove</button>
-      <button class="book-btn ${snapshot.val()[key].read}">${snapshot.val()[key].read}</button>
+      <button class="book-btn ${snapshot.val()[key].read}" data-index="${key}">${snapshot.val()[key].read}</button>
       </div>`;
       cont.appendChild(div)
     });
@@ -58,13 +58,14 @@ function addBook(e){
     read : checkbox.checked ? "Completed" : "Uncompleted",
   })
   document.getElementById("library").reset();
+  closeForm()
 }
 
 // removing and completing books
 function handleCard(e) {
   var indi = e.target.dataset.index;
+  var ref = firebase.database().ref(`books/${indi}`);
   if(e.target.classList.contains('remove')){
-    var ref = firebase.database().ref(`books/${indi}`);
     ref.remove()
     .then(function() {
       console.log("Remove succeeded.")
@@ -75,15 +76,14 @@ function handleCard(e) {
 
   }
   else if(e.target.classList.contains('Completed')){
-    e.target.classList.remove('Completed')
-    e.target.classList.add('Uncompleted')
-    e.target.innerText = "Uncompleted"
+    ref.update({
+      read: 'Uncompleted'
+    })
   }
   else if(e.target.classList.contains('Uncompleted')){
-    e.target.classList.remove('Uncompleted')
-    e.target.classList.add('Completed')
-    e.target.innerText = "Completed"
-
+    ref.update({
+      read: 'Completed'
+    })
   }
 }
 

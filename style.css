@@ -101,6 +101,22 @@ body {
 .Uncompleted {
   background-color: red !important;
 }
+
+.outer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.outer-btn {
+  background-color: #4caf50;
+  color: white;
+  font-size: 50px;
+  padding: 100px 100px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
 /* Add a red background color to the cancel button */
 .form-container .cancel {
   background-color: red;
